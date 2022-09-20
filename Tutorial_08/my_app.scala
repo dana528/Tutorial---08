@@ -18,9 +18,6 @@ case class Point(var x: Int, var y: Int) {
         this.x = this.y
         this.y = tmp
     }
-
-    override def toString() = "( " + x + " , " + y + " )"
-
 }
 
 object Point extends App {
