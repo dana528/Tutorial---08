@@ -1,48 +1,41 @@
-object my_app  extends App{
+case class Point(var x: Int, var y: Int) {
+    def add(a:Point) = new Point(this.x + a.x, this.y + a.y)
 
-  val p1 = Point(1,2)
-  val p2 = Point(2,3)
-  val p3 = p1.move(1,1)
-  val p4 = p1.distance(p2)
+    def move(x:Int, y:Int):Unit = {
+        this.x = this.x + x
+        this.y = this.y + y
+    }
 
-  println("p1 = " + p1)
-  println("p2 = " + p2)
-  println( "p1+p2 = " + (p1+p2) )
-  println( "p3 = p1.move(1,1) =  " + p3)
-  println(p4)
+    def distance(a:Point) : Double = {
+        var xDist:Int = this.x - a.x
+        var yDist:Int = this.y - a.y
+        var dist: Int = xDist*xDist + yDist*yDist
+        scala.math.sqrt(dist)
+    }
 
-  p1.invert()
-  println(p1)
+    def invert() :Unit = {
+        var tmp = this.x
+        this.x = this.y
+        this.y = tmp
+    }
+
+    override def toString() = "( " + x + " , " + y + " )"
+
 }
 
-case class Point(a:Int, b:Int)
-{
-  def x: Int = a
-  def y: Int = b
+object Point extends App {
 
-  /* move a point by given distance dx and dy */
-  def move( dx:Int, dy:Int) = Point( this.x+dx, this.y+dy)
+    var a = Point(1,2)
+    var b = Point(4,10)
+    
+    println("\n( " + a.x + " , " + a.y + " )" + " + " + "( " + b.x + " , " + b.y + " )" + " = " + a.add(b))
 
-  /* add two given points */
-  def +(that:Point) = Point( this.x+that.x, this.y+that.y)
+    a.move(x = 2, y = 4)
+    println("\nAfter move = " + a)
+    
+    var c = a.distance(b)
+    println("\nDistance =" + c)
 
-  /* find distance between two given  points */
-  
-  
-   def distance(p1:Point) = {
-   var x1 = this.x - p1.x
-   var y1 =  this.y - p1.y
-   var dist = x1*x1 + y1*y1
-    scala.math.sqrt(dist)
-   }
-
-
-  /* invert part */
- def invert():Unit = {
-    var tmp  = this.x
-    this.x = this.y
-    this.y = tmp
-  }
-  
+    a.invert()
+    println("\nAfter invert = " + a)
 }
-
